@@ -2,6 +2,7 @@ package com.sam.sudoku;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -35,6 +36,8 @@ public class PuzzleView extends View {
    
    private final Game game;
    private RelativeLayout r;
+   private View solver;
+   private Button solve;
    public PuzzleView(Context context, RelativeLayout r) {
       super(context);
       this.game = (Game) context;
@@ -42,6 +45,14 @@ public class PuzzleView extends View {
       setFocusableInTouchMode(true);
       r.addView(this);
       this.r = (RelativeLayout) r;
+      Log.i("createbutton","createbutton");
+	   solve = new Button(this.game);
+	   solve.setText("Screw It. Solve Now!");
+	   solve.setTextSize(30);	   
+	   RelativeLayout.LayoutParams rLParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+	   rLParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
+	   r.addView(solve, rLParams); 
+	   solve.setId(1);
    }
    
    @Override
@@ -61,7 +72,9 @@ public class PuzzleView extends View {
    
    @Override
    protected void onDraw(Canvas canvas) {
-	   createSolveButton();
+	   Log.i("ondraw","ondraw");
+	  solver = game.findViewById(solve.getId());
+	  createSolveButton();
       // Draw the background...
       Paint background = new Paint();
       background.setColor(getResources().getColor(R.color.puzzle_background));
@@ -162,6 +175,8 @@ public class PuzzleView extends View {
    }
    
    private void createSolveButton() {
+	   /*
+	   Log.i("createbutton","createbutton");
 	   Button solve = new Button(this.game);
 	   solve.setText("Screw It. Solve Now!");
 	   solve.setTextSize(30);	   
@@ -170,17 +185,22 @@ public class PuzzleView extends View {
 	   r.addView(solve, rLParams); 
 	   solve.setId(1);
 	   View solver = game.findViewById(solve.getId());
+	   */
 	   solver.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View view) {
-	        	
+	        	Log.i("clicked","clicked");
 	        	if (game.solver.startSolve(game.solver.sudoBoard.gameboard)) {
+	        		Log.i("solved", "solved");
 	        		invalidate();
 	        		for (int i = 0; i < 9; i++) {
 	        	         for (int j = 0; j < 9; j++) {
 	        	        	 game.puzzle[i][j] = game.solver.sudoBoard.gameboard[i][j].front().item();
+	        	        	 
 	        	         }
-	        		}	
+	        		}
+	        	invalidate();
 	        	} else {
+	        		Log.i("error", "error");
 	        		startAnimation(AnimationUtils.loadAnimation(game, R.anim.shake));
 	        		Toast toast = Toast.makeText(game,
 	        	               R.string.invalid_board, Toast.LENGTH_SHORT);

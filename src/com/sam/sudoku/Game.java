@@ -121,6 +121,10 @@ public class Game extends Activity {
    /** Change the tile at the given coordinates */
    private void setTile(int x, int y, int value) {
       puzzle[y][x] = value;
+      SList s = new SList();
+	  s.insertFront(value);
+      solver.sudoBoard.gameboard[y][x] = s;
+	  solver.sudoBoard.gameboard[y][x].occupied = true;
    }
    
 

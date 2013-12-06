@@ -1,8 +1,6 @@
 package com.sam.sudoku;
 
 import android.os.Bundle;
-import com.apptimize.Apptimize;
-import com.apptimize.ApptimizeExperiment;
 import android.view.Menu;
 import android.view.MenuInflater; 
 import android.view.MenuItem;
@@ -24,8 +22,8 @@ public class Sudoku extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Apptimize.setup(this, "caSlcs0977sDSKkcskas");
 		setContentView(R.layout.activity_main);
+		
 		
 		
 		// Set up click listeners for all the buttons
@@ -46,7 +44,6 @@ public class Sudoku extends Activity implements OnClickListener {
 				startActivity(i);
 				break;
 			case R.id.new_button: 
-				Apptimize.goalReached(555);
 				openNewGameDialog(); 
 				break;
 			case R.id.exit_button: 
