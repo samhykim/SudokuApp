@@ -175,17 +175,6 @@ public class PuzzleView extends View {
    }
    
    private void createSolveButton() {
-	   /*
-	   Log.i("createbutton","createbutton");
-	   Button solve = new Button(this.game);
-	   solve.setText("Screw It. Solve Now!");
-	   solve.setTextSize(30);	   
-	   RelativeLayout.LayoutParams rLParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-	   rLParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-	   r.addView(solve, rLParams); 
-	   solve.setId(1);
-	   View solver = game.findViewById(solve.getId());
-	   */
 	   solver.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View view) {
 	        	Log.i("clicked","clicked");

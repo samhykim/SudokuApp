@@ -10,27 +10,23 @@ public class Solver {
 
     public boolean startSolve(SList[][] board) {
         boolean added;
+        SList[][] copyBoard = sudoBoard.copyBoard(board);
         do {
             added = false;
             for (int k = 1; k <= 9; k++) {
                 for (int value = 1; value <= 9; value++) {
 
-                    added = added || clusterIterator(board, k, value);
+                    added = added || clusterIterator(copyBoard, k, value);
                 }
             }
-            if (isSolved(board)) {
-                sudoBoard.gameboard = sudoBoard.copyBoard(board);
+            if (isSolved(copyBoard)) {
+                sudoBoard.gameboard = copyBoard;
                 System.out.println("success");
                 return true;
             }
         }
-
         while (added);
-
-        return Solve(board);
-
-
-
+        return Solve(copyBoard);
     }
     public boolean Solve(SList[][] board) {
        // drawBoard(board);

@@ -101,9 +101,9 @@ public class Game extends Activity {
     	  for (int j = 0; j < 9; j++) {
     		  puz[i][j] = string.charAt(count) - '0';
     		  if (puz[i][j] != 0) {
-    			  SList s = new SList();
-    			  s.insertFront(puz[i][j]);
-    			  solver.sudoBoard.gameboard[i][j] = s;
+    			  //SList s = new SList();
+    			  solver.sudoBoard.gameboard[i][j].insertFront(puz[i][j]);
+    			  //solver.sudoBoard.gameboard[i][j] = s;
     			  solver.sudoBoard.gameboard[i][j].occupied = true;
     		  }
     		  
@@ -121,10 +121,19 @@ public class Game extends Activity {
    /** Change the tile at the given coordinates */
    private void setTile(int x, int y, int value) {
       puzzle[y][x] = value;
-      SList s = new SList();
-	  s.insertFront(value);
-      solver.sudoBoard.gameboard[y][x] = s;
-	  solver.sudoBoard.gameboard[y][x].occupied = true;
+      //SList s = new SList();
+	  //s.insertFront(value);
+
+      if (value == 0) {
+    	  solver.sudoBoard.gameboard[y][x].occupied = false;
+    	  SList s = new SList();
+    	  s.insertFront(value);
+    	  solver.sudoBoard.gameboard[y][x] = s;
+      } else {
+    	  solver.sudoBoard.gameboard[y][x].occupied = true;
+    	  Log.i("value", "value: " + value);
+          solver.sudoBoard.gameboard[y][x].insertFront(value);
+      }
    }
    
 
